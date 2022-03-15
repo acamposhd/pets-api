@@ -259,3 +259,45 @@ export const deleteVaccine = /* GraphQL */ `
     }
   }
 `;
+export const createRoute = /* GraphQL */ `
+  mutation CreateRoute(
+    $input: CreateRouteInput!
+    $condition: ModelRouteConditionInput
+  ) {
+    createRoute(input: $input, condition: $condition) {
+      id
+      route
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateRoute = /* GraphQL */ `
+  mutation UpdateRoute(
+    $input: UpdateRouteInput!
+    $condition: ModelRouteConditionInput
+  ) {
+    updateRoute(input: $input, condition: $condition) {
+      id
+      route
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteRoute = /* GraphQL */ `
+  mutation DeleteRoute(
+    $input: DeleteRouteInput!
+    $condition: ModelRouteConditionInput
+  ) {
+    deleteRoute(input: $input, condition: $condition) {
+      id
+      route
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`;

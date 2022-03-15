@@ -6,6 +6,8 @@ import "@aws-amplify/ui-react/styles.css";
 import "./App.css";
 
 import { list, create, onCreate } from "./services/owner";
+import Nav from "./components/Navbar";
+import MainLayout from "./layouts/Main";
 
 Amplify.configure(config);
 
@@ -15,7 +17,6 @@ function App({ signOut, user }) {
 
   async function listOwners() {
     const owners = await list();
-    console.log({ api: owners });
     if (owners) setOwners(owners);
   }
 
@@ -27,7 +28,6 @@ function App({ signOut, user }) {
   function onSubmit(e) {
     e.preventDefault();
     addOwner(owner);
-    console.log({ owner });
   }
 
   useEffect(() => {
@@ -42,13 +42,14 @@ function App({ signOut, user }) {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <>
+      <Nav />
+      <MainLayout title={"Dashboard"}>
         <h4>Hello {user.username}</h4>
         <button onClick={signOut}>Sign out</button>
 
         <form name="createOwner" onSubmit={onSubmit}>
-          <h2>Create new owner</h2>
+          <h1 className="text-3xl font-bold underline">Create new owner</h1>
           <input
             type="text"
             placeholder="Add a new owner name"
@@ -60,8 +61,8 @@ function App({ signOut, user }) {
         <h2>Owners list</h2>
         {owners &&
           owners.map((owner) => <p key={owner.id}>{`name: ${owner.name}`}</p>)}
-      </header>
-    </div>
+      </MainLayout>
+    </>
   );
 }
 

@@ -232,3 +232,36 @@ export const onDeleteVaccine = /* GraphQL */ `
     }
   }
 `;
+export const onCreateRoute = /* GraphQL */ `
+  subscription OnCreateRoute {
+    onCreateRoute {
+      id
+      route
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateRoute = /* GraphQL */ `
+  subscription OnUpdateRoute {
+    onUpdateRoute {
+      id
+      route
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteRoute = /* GraphQL */ `
+  subscription OnDeleteRoute {
+    onDeleteRoute {
+      id
+      route
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`;

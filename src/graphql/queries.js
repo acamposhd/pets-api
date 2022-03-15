@@ -150,3 +150,32 @@ export const listVaccines = /* GraphQL */ `
     }
   }
 `;
+export const getRoute = /* GraphQL */ `
+  query GetRoute($id: ID!) {
+    getRoute(id: $id) {
+      id
+      route
+      name
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listRoutes = /* GraphQL */ `
+  query ListRoutes(
+    $filter: ModelRouteFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listRoutes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        route
+        name
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
