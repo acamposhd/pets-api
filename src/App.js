@@ -11,7 +11,7 @@ import { Route, Routes, Outlet } from "react-router-dom";
 
 Amplify.configure(config);
 
-function App({ signOut, user }) {
+function App() {
   const LayoutComponent = withAuthenticator(Layout);
   return (
     <>
@@ -41,10 +41,8 @@ function Vaccines() {
 function Layout({ signOut, user }) {
   return (
     <>
-      <Nav />
+      <Nav signOut={signOut} user={user} />
       <MainLayout title={"Dashboard"}>
-        <h4>Hello {user.username}</h4>
-        <button onClick={signOut}>Sign out</button>
         <Outlet />
       </MainLayout>
     </>

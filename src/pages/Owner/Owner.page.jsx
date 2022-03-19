@@ -27,7 +27,7 @@ export default function OwnerPage() {
       subscription = await onCreate(listOwners);
     })();
     return () => {
-      subscription.unsubscribe();
+      subscription?.unsubscribe();
     };
   }, []);
   return (

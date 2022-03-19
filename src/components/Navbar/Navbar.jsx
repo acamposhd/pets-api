@@ -9,7 +9,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+export default function NavBar({ user, signOut }) {
   const [routes, setRoutes] = useState([]);
   async function listRoutes() {
     const routes = await list();
@@ -103,6 +103,16 @@ export default function Example() {
                   >
                     <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
+                        <div>
+                          <h5 className="px-4 mt-2 capitalize">
+                            Hello, <span className="font-bold">{user.username}</span>
+                          </h5>
+                          <div class="py-4">
+                            <div class="w-full border-t border-gray-300"></div>
+                          </div>
+                        </div>
+                      </Menu.Item>
+                      <Menu.Item>
                         {({ active }) => (
                           <Link
                             to={"#"}
@@ -130,15 +140,15 @@ export default function Example() {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <Link
-                            to={"#"}
+                          <p
                             className={classNames(
                               active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
+                              "block px-4 py-2 text-sm text-gray-700 	cursor-pointer"
                             )}
+                            onClick={() => signOut()}
                           >
-                            Sign out
-                          </Link>
+                            Sign Out
+                          </p>
                         )}
                       </Menu.Item>
                     </Menu.Items>
