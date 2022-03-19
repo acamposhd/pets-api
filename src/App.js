@@ -1,66 +1,51 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Amplify from "aws-amplify";
 import config from "./aws-exports";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import "./App.css";
-
-import { list, create, onCreate } from "./services/owner";
+import OwnerPage from "./pages/Owner";
 import Nav from "./components/Navbar";
 import MainLayout from "./layouts/Main";
+import { Route, Routes, Outlet } from "react-router-dom";
 
 Amplify.configure(config);
 
 function App({ signOut, user }) {
-  const [owner, setOwner] = useState({});
-  const [owners, setOwners] = useState([]);
+  const LayoutComponent = withAuthenticator(Layout);
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<LayoutComponent />}>
+          <Route index element={<Home />} />
+          <Route path="owners" element={<OwnerPage />} />
+          <Route path="pets" element={<Pets />} />
+          <Route path="vaccines" element={<Vaccines />} />
+        </Route>
+      </Routes>
+    </>
+  );
+}
 
-  async function listOwners() {
-    const owners = await list();
-    if (owners) setOwners(owners);
-  }
+function Home() {
+  return <p>Home</p>;
+}
 
-  async function addOwner() {
-    const ownerCreated = await create(owner);
-    return ownerCreated;
-  }
+function Pets() {
+  return <p>pets</p>;
+}
+function Vaccines() {
+  return <p>vaccines</p>;
+}
 
-  function onSubmit(e) {
-    e.preventDefault();
-    addOwner(owner);
-  }
-
-  useEffect(() => {
-    listOwners();
-    let subscription;
-    (async function suscribe() {
-      subscription = await onCreate(listOwners);
-    })();
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
-
+function Layout({ signOut, user }) {
   return (
     <>
       <Nav />
       <MainLayout title={"Dashboard"}>
         <h4>Hello {user.username}</h4>
         <button onClick={signOut}>Sign out</button>
-
-        <form name="createOwner" onSubmit={onSubmit}>
-          <h1 className="text-3xl font-bold underline">Create new owner</h1>
-          <input
-            type="text"
-            placeholder="Add a new owner name"
-            onChange={(e) => setOwner({ name: e.target.value })}
-          ></input>
-          <button type="submit">Crear</button>
-        </form>
-
-        <h2>Owners list</h2>
-        {owners &&
-          owners.map((owner) => <p key={owner.id}>{`name: ${owner.name}`}</p>)}
+        <Outlet />
       </MainLayout>
     </>
   );
