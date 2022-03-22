@@ -42,7 +42,7 @@ function Layout({ signOut, user }) {
   return (
     <>
       <Nav signOut={signOut} user={user} />
-      <MainLayout title={"Dashboard"}>
+      <MainLayout>
         <Outlet />
       </MainLayout>
     </>
